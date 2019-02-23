@@ -3,9 +3,9 @@
 namespace mabrahao\MockServer;
 
 use mabrahao\MockServer\Domain\Request;
-use mabrahao\MockServer\Domain\RequestMatcher;
+use mabrahao\MockServer\Domain\RequestHandler;
 use mabrahao\MockServer\Exceptions\RuntimeException;
-use mabrahao\MockServer\Infrastructure\DefaultRequestMatcher;
+use mabrahao\MockServer\Infrastructure\DefaultRequestHandler;
 
 class MockServer
 {
@@ -51,7 +51,7 @@ class MockServer
 
     public function run()
     {
-        $script = __DIR__ . DIRECTORY_SEPARATOR;
+        $script = __DIR__ . DIRECTORY_SEPARATOR . 'server.php';
 
         $stdout = tempnam(sys_get_temp_dir(), 'mabrahao-ms-');
         $phpCmd    = "php -S {$this->host}:{$this->port} " . escapeshellarg($script);
@@ -64,9 +64,9 @@ class MockServer
         $this->pid = exec($cmd,$output, $return);
     }
 
-    public function when(Request $request): RequestMatcher
+    public function when(Request $request): RequestHandler
     {
-        return new DefaultRequestMatcher($request);
+        return new DefaultRequestHandler($request);
     }
 
     public function stop()

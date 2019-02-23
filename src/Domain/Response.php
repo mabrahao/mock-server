@@ -8,4 +8,5 @@ interface Response
     public function withHeader(string $headerKey, string $headerValue): Response;
     public function withCookie(string $cookieKey, string $cookieValue): Response;
     public function withBody(string $body): Response;
+    public function getConfigs(): array;
 }
