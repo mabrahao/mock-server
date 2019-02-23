@@ -2,25 +2,25 @@
 
 namespace mabrahao\MockServer\Infrastructure;
 
-use mabrahao\MockServer\Domain\Request;
-use mabrahao\MockServer\Domain\RequestHandler;
-use mabrahao\MockServer\Domain\Response;
+use mabrahao\MockServer\Domain\RequestInterface;
+use mabrahao\MockServer\Domain\RequestHandlerInterface;
+use mabrahao\MockServer\Domain\ResponseInterface;
 
-class DefaultRequestHandler implements RequestHandler
+class RequestHandler implements RequestHandlerInterface
 {
-    /** @var Request */
+    /** @var RequestInterface */
     private $request;
 
     /**
      * DefaultRequestMatcher constructor.
-     * @param Request $request
+     * @param RequestInterface $request
      */
-    public function __construct(Request $request)
+    public function __construct(RequestInterface $request)
     {
         $this->request = $request;
     }
 
-    public function respond(Response $response)
+    public function respond(ResponseInterface $response)
     {
         $matchConfig = [
             'request' => $this->request->getConfigs(),

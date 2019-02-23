@@ -2,17 +2,17 @@
 
 namespace mabrahao\MockServer\Infrastructure;
 
-use mabrahao\MockServer\Domain\Response;
+use mabrahao\MockServer\Domain\ResponseInterface;
 
-class DefaultResponse implements Response
+class Response implements ResponseInterface
 {
     private $responseStructure;
 
     /**
      * @param int $statusCode
-     * @return Response
+     * @return ResponseInterface
      */
-    public function withStatusCode(int $statusCode): Response
+    public function withStatusCode(int $statusCode): ResponseInterface
     {
         $this->responseStructure['statusCode'] = $statusCode;
         return $this;
@@ -21,9 +21,9 @@ class DefaultResponse implements Response
     /**
      * @param string $headerKey
      * @param string $headerValue
-     * @return Response
+     * @return ResponseInterface
      */
-    public function withHeader(string $headerKey, string $headerValue): Response
+    public function withHeader(string $headerKey, string $headerValue): ResponseInterface
     {
         $this->responseStructure['header'] = array_merge(
             $this->responseStructure['header'] ?? [],
@@ -35,9 +35,9 @@ class DefaultResponse implements Response
     /**
      * @param string $cookieKey
      * @param string $cookieValue
-     * @return Response
+     * @return ResponseInterface
      */
-    public function withCookie(string $cookieKey, string $cookieValue): Response
+    public function withCookie(string $cookieKey, string $cookieValue): ResponseInterface
     {
         $this->responseStructure['cookie'] = array_merge(
             $this->responseStructure['cookie'] ?? [],
@@ -48,9 +48,9 @@ class DefaultResponse implements Response
 
     /**
      * @param string $body
-     * @return Response
+     * @return ResponseInterface
      */
-    public function withBody(string $body): Response
+    public function withBody(string $body): ResponseInterface
     {
         $this->responseStructure['body'] = $body;
         return $this;

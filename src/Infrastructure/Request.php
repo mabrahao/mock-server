@@ -2,17 +2,17 @@
 
 namespace mabrahao\MockServer\Infrastructure;
 
-use mabrahao\MockServer\Domain\Request;
+use mabrahao\MockServer\Domain\RequestInterface;
 
-class DefaultRequest implements Request
+class Request implements RequestInterface
 {
     private $requestStructure = [];
 
     /**
      * @param string $path
-     * @return Request
+     * @return RequestInterface
      */
-    public function withPath(string $path): Request
+    public function withPath(string $path): RequestInterface
     {
         $this->requestStructure['path'] = $path;
         return $this;
@@ -20,9 +20,9 @@ class DefaultRequest implements Request
 
     /**
      * @param string $method
-     * @return Request
+     * @return RequestInterface
      */
-    public function withMethod(string $method): Request
+    public function withMethod(string $method): RequestInterface
     {
         $this->requestStructure['method'] = $method;
         return $this;
@@ -31,9 +31,9 @@ class DefaultRequest implements Request
     /**
      * @param string $headerKey
      * @param string $headerValue
-     * @return Request
+     * @return RequestInterface
      */
-    public function withHeader(string $headerKey, string $headerValue): Request
+    public function withHeader(string $headerKey, string $headerValue): RequestInterface
     {
         $this->requestStructure['header'] = array_merge(
             $this->requestStructure['header'] ?? [],
@@ -44,9 +44,9 @@ class DefaultRequest implements Request
 
     /**
      * @param string $body
-     * @return Request
+     * @return RequestInterface
      */
-    public function withBody(string $body): Request
+    public function withBody(string $body): RequestInterface
     {
         $this->requestStructure['body'] = $body;
         return $this;

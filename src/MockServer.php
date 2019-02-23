@@ -2,10 +2,10 @@
 
 namespace mabrahao\MockServer;
 
-use mabrahao\MockServer\Domain\Request;
-use mabrahao\MockServer\Domain\RequestHandler;
+use mabrahao\MockServer\Domain\RequestInterface;
+use mabrahao\MockServer\Domain\RequestHandlerInterface;
 use mabrahao\MockServer\Exceptions\RuntimeException;
-use mabrahao\MockServer\Infrastructure\DefaultRequestHandler;
+use mabrahao\MockServer\Infrastructure\RequestHandler;
 
 class MockServer
 {
@@ -64,9 +64,9 @@ class MockServer
         $this->pid = exec($cmd,$output, $return);
     }
 
-    public function when(Request $request): RequestHandler
+    public function when(RequestInterface $request): RequestHandlerInterface
     {
-        return new DefaultRequestHandler($request);
+        return new RequestHandler($request);
     }
 
     public function stop()
@@ -81,6 +81,6 @@ class MockServer
 
     public function __destruct()
     {
-        $this->stop();
+        //$this->stop();
     }
 }
