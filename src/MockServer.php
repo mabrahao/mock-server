@@ -81,6 +81,6 @@ class MockServer
 
     public function __destruct()
     {
-        //$this->stop();
+        $this->stop();
     }
 }
