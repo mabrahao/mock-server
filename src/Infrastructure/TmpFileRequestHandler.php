@@ -6,7 +6,7 @@ use mabrahao\MockServer\Domain\RequestInterface;
 use mabrahao\MockServer\Domain\RequestHandlerInterface;
 use mabrahao\MockServer\Domain\ResponseInterface;
 
-class RequestHandler implements RequestHandlerInterface
+class TmpFileRequestHandler implements RequestHandlerInterface
 {
     /** @var RequestInterface */
     private $request;
@@ -29,7 +29,17 @@ class RequestHandler implements RequestHandlerInterface
 
         $tmpDir = sys_get_temp_dir() ?: '/tmp';
 
-        $file = fopen($tmpDir . DIRECTORY_SEPARATOR . "request.config", "w");
+        $tmpPath = $tmpDir . DIRECTORY_SEPARATOR . 'mock-server';
+
+        if(!is_dir($tmpPath)) {
+            echo $tmpPath . PHP_EOL;
+            mkdir($tmpPath);
+        }
+
+        $uniqid = uniqid('request-');
+        $filePath = $tmpPath . DIRECTORY_SEPARATOR . "{$uniqid}.config";
+
+        $file = fopen($filePath, "w");
         fwrite($file, json_encode($matchConfig));
         fclose($file);
     }

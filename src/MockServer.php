@@ -4,8 +4,9 @@ namespace mabrahao\MockServer;
 
 use mabrahao\MockServer\Domain\RequestInterface;
 use mabrahao\MockServer\Domain\RequestHandlerInterface;
-use mabrahao\MockServer\Exceptions\RuntimeException;
-use mabrahao\MockServer\Infrastructure\RequestHandler;
+use mabrahao\MockServer\Exceptions\BindAddressException;
+use mabrahao\MockServer\Exceptions\NoAvailablePortException;
+use mabrahao\MockServer\Infrastructure\TmpFileRequestHandler;
 
 class MockServer
 {
@@ -13,14 +14,18 @@ class MockServer
     private $host;
     /** @var int */
     private $port;
+    /** @var int */
     private $pid;
+    /** @var int */
+    private $sleepTime;
 
     /**
      * MockServer constructor.
      * @param string $host
      * @param int $port
+     * @param $sleepTime
      */
-    public function __construct(string $host = '127.0.0.1', int $port = 0)
+    public function __construct(string $host = '127.0.0.1', int $port = 0, $sleepTime = 200000)
     {
         $this->host = $host;
         $this->port = $port;
@@ -29,6 +34,7 @@ class MockServer
             $this->port = $this->findAvailablePort();
         }
 
+        $this->sleepTime = $sleepTime;
     }
 
     private function findAvailablePort(): int
@@ -36,7 +42,7 @@ class MockServer
         $socket = socket_create(AF_INET, SOCK_STREAM, 0);
 
         if(!socket_bind($socket, $this->host, 0)) {
-            throw new RuntimeException('Unable to bind address');
+            throw new BindAddressException('Unable to bind address');
         }
 
         socket_getsockname($socket, $addr, $port);
@@ -46,7 +52,7 @@ class MockServer
             return $port;
         }
 
-        throw new RuntimeException('No available for found');
+        throw new NoAvailablePortException('No available for found');
     }
 
     public function run()
@@ -63,12 +69,12 @@ class MockServer
 
         $this->pid = exec($cmd,$output, $return);
 
-        usleep(200000);
+        usleep($this->sleepTime);
     }
 
     public function when(RequestInterface $request): RequestHandlerInterface
     {
-        return new RequestHandler($request);
+        return new TmpFileRequestHandler($request);
     }
 
     public function stop()
