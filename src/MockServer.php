@@ -62,6 +62,8 @@ class MockServer
         );
 
         $this->pid = exec($cmd,$output, $return);
+
+        usleep(200000);
     }
 
     public function when(RequestInterface $request): RequestHandlerInterface
