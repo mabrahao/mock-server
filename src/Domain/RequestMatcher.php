@@ -31,15 +31,17 @@ class RequestMatcher
     /**
      * @throws \Exception
      */
-    public function match()
+    public function match(): bool
     {
         $request = $this->config['request'];
         $response = $this->config['response'];
 
         if($this->matchRequest($request)) {
           $this->buildResponse($response);
+          return true;
         }
 
+        return false;
         // TODO: Improve response when no match is found
     }
 

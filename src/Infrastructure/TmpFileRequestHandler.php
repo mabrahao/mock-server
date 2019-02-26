@@ -32,7 +32,6 @@ class TmpFileRequestHandler implements RequestHandlerInterface
         $tmpPath = $tmpDir . DIRECTORY_SEPARATOR . 'mock-server';
 
         if(!is_dir($tmpPath)) {
-            echo $tmpPath . PHP_EOL;
             mkdir($tmpPath);
         }
 

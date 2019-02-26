@@ -31,6 +31,8 @@ foreach ($files as $file) {
         ),
         true
     );
-
-    (new RequestMatcher($config, $_SERVER, $PHP_INPUT, $_POST))->match();
+    $matcher = new RequestMatcher($config, $_SERVER, $PHP_INPUT, $_POST);
+    if ($matcher->match()) {
+        break;
+    }
 }
