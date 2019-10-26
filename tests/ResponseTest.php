@@ -1,6 +1,6 @@
 <?php
 
-use mabrahao\MockServer\Infrastructure\Response;
+use mabrahao\MockServer\Response\Response;
 use PHPUnit\Framework\TestCase;
 
 class ResponseTest extends TestCase
@@ -29,8 +29,7 @@ class ResponseTest extends TestCase
             'body' => $body,
         ];
 
-        $response = new Response();
-        $response
+        $response = Response::new()
             ->withStatusCode($statusCode)
             ->withHeader($headerKey, $headerValue)
             ->withHeader($otherHeaderKey, $otherHeaderValue)
@@ -38,7 +37,7 @@ class ResponseTest extends TestCase
             ->withBody($body);
 
         // execution
-        $actual = $response->getConfigs();
+        $actual = $response->toArray();
 
         // assertions
         $this->assertEquals($expected, $actual);

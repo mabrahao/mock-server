@@ -10,8 +10,10 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "ext-sockets": "*"
+    "php": ">=7.2",
+    "ext-sockets": "*",
+    "ext-json": "*",
+    "myclabs/php-enum": "^1.7"
   },
   "autoload": {
     "psr-4": {

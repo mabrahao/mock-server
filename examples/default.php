@@ -1,24 +1,47 @@
 <?php
 
-use mabrahao\MockServer\Domain\MethodEnum;
-use mabrahao\MockServer\Infrastructure\Request;
-use mabrahao\MockServer\Infrastructure\Response;
-
 require __DIR__ . '/../vendor/autoload.php';
 
-$server = new \mabrahao\MockServer\MockServer('127.0.0.1', 64648);
-$server->run();
+use mabrahao\MockServer\Method;
+use mabrahao\MockServer\Request\Request;
+use mabrahao\MockServer\Response\Response;
+use mabrahao\MockServer\MockServerClient;
+
+$server = new MockServerClient('127.0.0.1', 64648);
 
 $server->when(
-    (new Request())
+    Request::new()
         ->withPath('/api/v1/integrations')
-        ->withMethod(MethodEnum::POST)
-        ->withHeader('content-type', 'application/json')
-        ->withHeader('x-api-key', 'FAKE_KEY')
-        ->withBody(json_encode(['key'=>'value']))
+        ->withMethod(Method::GET)
 )->respond(
-    (new Response())
-        ->withStatusCode(201)
+    Response::new()
+        ->withStatusCode(200)
         ->withHeader('Content-Type', 'application/json')
         ->withBody(json_encode(['integrations' => ['MB','LS']]))
 );
+
+$server->when(
+    Request::new()
+        ->withPath('/api/v1/integrations')
+        ->withMethod(Method::POST)
+        ->withBody(json_encode(['name' => 'John Doe', 'email' => 'john.doe@7shifts.com']))
+)->respond(
+    Response::new()
+        ->withStatusCode(201)
+        ->withHeader('Content-Type', 'application/json')
+        ->withBody(json_encode(['success' => true]))
+);
+
+$server->when(
+    Request::new()
+        ->withPath('/\/api\/v1\/integrations\/\d$/')
+        ->withMethod(Method::GET)
+)->respond(
+    Response::new()
+        ->withStatusCode(201)
+        ->withHeader('Content-Type', 'application/json')
+        ->withBody(json_encode(['name' => 'John Doe', 'email' => 'john.doe@7shifts.com']))
+);
+
+
+while (true);

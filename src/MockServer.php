@@ -2,11 +2,8 @@
 
 namespace mabrahao\MockServer;
 
-use mabrahao\MockServer\Domain\RequestInterface;
-use mabrahao\MockServer\Domain\RequestHandlerInterface;
-use mabrahao\MockServer\Exceptions\BindAddressException;
 use mabrahao\MockServer\Exceptions\NoAvailablePortException;
-use mabrahao\MockServer\Infrastructure\TmpFileRequestHandler;
+use mabrahao\MockServer\Exceptions\UnableToBindAddressException;
 
 class MockServer
 {
@@ -18,14 +15,19 @@ class MockServer
     private $pid;
     /** @var int */
     private $sleepTime;
+    /** @var boolean */
+    private $running = false;
+    /** @var string */
+    private $storageType;
 
     /**
      * MockServer constructor.
      * @param string $host
      * @param int $port
-     * @param $sleepTime
+     * @param int $sleepTime
+     * @param string $storageType
      */
-    public function __construct(string $host = '127.0.0.1', int $port = 0, $sleepTime = 200000)
+    public function __construct(string $host, int $port, int $sleepTime, string $storageType)
     {
         $this->host = $host;
         $this->port = $port;
@@ -35,6 +37,7 @@ class MockServer
         }
 
         $this->sleepTime = $sleepTime;
+        $this->storageType = $storageType;
     }
 
     private function findAvailablePort(): int
@@ -42,7 +45,7 @@ class MockServer
         $socket = socket_create(AF_INET, SOCK_STREAM, 0);
 
         if(!socket_bind($socket, $this->host, 0)) {
-            throw new BindAddressException('Unable to bind address');
+            throw new UnableToBindAddressException('Unable to bind address');
         }
 
         socket_getsockname($socket, $addr, $port);
@@ -57,9 +60,11 @@ class MockServer
 
     public function run()
     {
-        $script = __DIR__ . DIRECTORY_SEPARATOR . 'server.php';
+        $scriptName = $this->getScriptName();
 
-        $stdout = tempnam(sys_get_temp_dir(), 'mabrahao-ms-');
+        $script = __DIR__ . DIRECTORY_SEPARATOR . 'ServerScript' . DIRECTORY_SEPARATOR . $scriptName;
+
+        $stdout = tempnam(sys_get_temp_dir(), 'logs-ms-');
         $phpCmd    = "php -S {$this->host}:{$this->port} " . escapeshellarg($script);
 
         $cmd = sprintf('%s > %s 2>&1 & echo $!',
@@ -70,25 +75,33 @@ class MockServer
         $this->pid = exec($cmd,$output, $return);
 
         usleep($this->sleepTime);
-    }
 
-    public function when(RequestInterface $request): RequestHandlerInterface
-    {
-        return new TmpFileRequestHandler($request);
+        $this->running = true;
     }
 
     public function stop()
     {
         exec(sprintf('kill %d', $this->pid));
+        usleep($this->sleepTime);
+        $this->running = false;
     }
 
-    public function getServerUrl(): string
+    public function isRunning(): bool
+    {
+        return $this->running;
+    }
+
+    public function getUrl()
     {
         return "http://{$this->host}:{$this->port}";
     }
 
-    public function __destruct()
+    private function getScriptName(): string
     {
-        $this->stop();
+        switch ($this->storageType) {
+            case Storage::TEMP_FILE:
+            default:
+                return 'temp_file_index.php';
+        }
     }
 }

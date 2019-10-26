@@ -1,7 +1,7 @@
 <?php
 
-use mabrahao\MockServer\Domain\MethodEnum;
-use mabrahao\MockServer\Infrastructure\Request;
+use mabrahao\MockServer\Method;
+use mabrahao\MockServer\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase
@@ -10,7 +10,7 @@ class RequestTest extends TestCase
     {
         // setup
         $path = '/fake/path';
-        $method = MethodEnum::POST;
+        $method = Method::POST;
         $headerKey = 'content-type';
         $headerValue = 'application/json';
         $otherHeaderKey = 'x-api-key';
@@ -27,8 +27,7 @@ class RequestTest extends TestCase
             'body' => $body,
         ];
 
-        $request = new Request();
-        $request
+        $request = Request::new()
             ->withPath($path)
             ->withMethod($method)
             ->withHeader($headerKey, $headerValue)
@@ -36,7 +35,7 @@ class RequestTest extends TestCase
             ->withBody($body);
 
         // execution
-        $actual = $request->getConfigs();
+        $actual = $request->toArray();
 
         // assertions
         $this->assertEquals($expected, $actual);

@@ -1,18 +1,25 @@
 <?php
 
-namespace mabrahao\MockServer\Infrastructure;
+namespace mabrahao\MockServer\Response;
 
-use mabrahao\MockServer\Domain\ResponseInterface;
-
-class Response implements ResponseInterface
+class Response
 {
     private $responseStructure;
 
     /**
-     * @param int $statusCode
-     * @return ResponseInterface
+     * Response constructor.
+     * @param $responseStructure
      */
-    public function withStatusCode(int $statusCode): ResponseInterface
+    private function __construct(array $responseStructure = [])
+    {
+        $this->responseStructure = $responseStructure;
+    }
+
+    /**
+     * @param int $statusCode
+     * @return Response
+     */
+    public function withStatusCode(int $statusCode): Response
     {
         $this->responseStructure['statusCode'] = $statusCode;
         return $this;
@@ -21,9 +28,9 @@ class Response implements ResponseInterface
     /**
      * @param string $headerKey
      * @param string $headerValue
-     * @return ResponseInterface
+     * @return Response
      */
-    public function withHeader(string $headerKey, string $headerValue): ResponseInterface
+    public function withHeader(string $headerKey, string $headerValue): Response
     {
         $this->responseStructure['header'] = array_merge(
             $this->responseStructure['header'] ?? [],
@@ -35,9 +42,9 @@ class Response implements ResponseInterface
     /**
      * @param string $cookieKey
      * @param string $cookieValue
-     * @return ResponseInterface
+     * @return Response
      */
-    public function withCookie(string $cookieKey, string $cookieValue): ResponseInterface
+    public function withCookie(string $cookieKey, string $cookieValue): Response
     {
         $this->responseStructure['cookie'] = array_merge(
             $this->responseStructure['cookie'] ?? [],
@@ -48,9 +55,9 @@ class Response implements ResponseInterface
 
     /**
      * @param string $body
-     * @return ResponseInterface
+     * @return Response
      */
-    public function withBody(string $body): ResponseInterface
+    public function withBody(string $body): Response
     {
         $this->responseStructure['body'] = $body;
         return $this;
@@ -59,8 +66,18 @@ class Response implements ResponseInterface
     /**
      * @return array
      */
-    public function getConfigs(): array
+    public function toArray(): array
     {
         return $this->responseStructure;
+    }
+
+    public static function fromArray(array $responseStructure): self
+    {
+        return new self($responseStructure);
+    }
+
+    public static function new(): self
+    {
+        return new self();
     }
 }
