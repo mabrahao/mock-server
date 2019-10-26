@@ -4,7 +4,7 @@ namespace mabrahao\MockServer;
 
 use mabrahao\MockServer\Response\Response;
 
-class ChainExpectation
+class ChainedExpectation
 {
     /** @var MockServerClient */
     private $mockServerClient;

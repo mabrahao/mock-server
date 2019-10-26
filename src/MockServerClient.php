@@ -2,13 +2,14 @@
 
 namespace mabrahao\MockServer;
 
+use mabrahao\MockServer\Enum\Storage;
 use mabrahao\MockServer\Request\Request;
 
 class MockServerClient
 {
     /** @var MockServer */
     private $server;
-    /** @var ExpectationRepository */
+    /** @var ExpectationRepositoryInterface */
     private $expectationRepository;
 
     /**
@@ -24,7 +25,7 @@ class MockServerClient
         $this->expectationRepository = ExpectationRepositoryFactory::newInstance($storageType);
     }
 
-    public function when(Request $request, Times $times = null): ChainExpectation
+    public function when(Request $request, Times $times = null): ChainedExpectation
     {
         if (!$this->server->isRunning()) {
             $this->server->run();
@@ -32,7 +33,7 @@ class MockServerClient
 
         $expectation = new Expectation($request, $times);
 
-        return new ChainExpectation($this, $expectation);
+        return new ChainedExpectation($this, $expectation);
     }
 
     public function storeChainedExpectation(Expectation $expectation)

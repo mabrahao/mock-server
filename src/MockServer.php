@@ -2,6 +2,7 @@
 
 namespace mabrahao\MockServer;
 
+use mabrahao\MockServer\Enum\Storage;
 use mabrahao\MockServer\Exceptions\NoAvailablePortException;
 use mabrahao\MockServer\Exceptions\UnableToBindAddressException;
 

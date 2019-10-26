@@ -2,7 +2,7 @@
 
 namespace mabrahao\MockServer;
 
-interface ExpectationRepository
+interface ExpectationRepositoryInterface
 {
     /**
      * @param Expectation $expectation

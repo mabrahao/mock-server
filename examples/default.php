@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use mabrahao\MockServer\Method;
+use mabrahao\MockServer\Enum\Method;
 use mabrahao\MockServer\Request\Request;
 use mabrahao\MockServer\Response\Response;
 use mabrahao\MockServer\MockServerClient;

@@ -1,6 +1,6 @@
 <?php
 
-use mabrahao\MockServer\Method;
+use mabrahao\MockServer\Enum\Method;
 use mabrahao\MockServer\Request\Request;
 use PHPUnit\Framework\TestCase;
 

@@ -5,7 +5,7 @@ namespace mabrahao\MockServer;
 use mabrahao\MockServer\Request\Request;
 use mabrahao\MockServer\Response\Response;
 
-class TempFileExpectationRepository implements ExpectationRepository
+class TempFileExpectationRepositoryInterface implements ExpectationRepositoryInterface
 {
     /** @var string */
     private $tmpDir;

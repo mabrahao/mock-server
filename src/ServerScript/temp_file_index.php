@@ -2,10 +2,10 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use mabrahao\MockServer\Matchers\RequestMatcher;
-use mabrahao\MockServer\Storage;
+use mabrahao\MockServer\RequestHandlerBuilder;
+use mabrahao\MockServer\Enum\Storage;
 
 $PHP_INPUT = file_get_contents("php://input");
 
-$matcher = new RequestMatcher(Storage::TEMP_FILE, $_SERVER, $_POST, $PHP_INPUT);
-$matcher->dispatch();
+$requestHandler = RequestHandlerBuilder::build(Storage::TEMP_FILE, $_SERVER, $PHP_INPUT);
+$requestHandler->dispatch();
