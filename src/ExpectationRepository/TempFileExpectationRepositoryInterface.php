@@ -94,8 +94,9 @@ class TempFileExpectationRepositoryInterface implements ExpectationRepositoryInt
     public function nukeAllExpectations(): bool
     {
         try {
+            $files = scandir($this->tmpPath, 1);
             array_walk(
-                scandir($this->tmpPath, 1),
+                $files,
                 function ($file) {
                     if (preg_match('/^request-(.*)\.config/', $file)) {
                         unlink($this->tmpPath . DIRECTORY_SEPARATOR . $file);
