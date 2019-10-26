@@ -3,11 +3,11 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use mabrahao\MockServer\Enum\Method;
-use mabrahao\MockServer\Request\Request;
-use mabrahao\MockServer\Response\Response;
-use mabrahao\MockServer\MockServerClient;
+use mabrahao\MockServer\MockServerBuilder;
+use mabrahao\MockServer\Model\Request;
+use mabrahao\MockServer\Model\Response;
 
-$server = new MockServerClient('127.0.0.1', 64648);
+$server = MockServerBuilder::build('127.0.0.1', 64648);
 
 $server->when(
     Request::new()

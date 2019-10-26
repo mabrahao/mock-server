@@ -1,6 +1,6 @@
 <?php
 
-use mabrahao\MockServer\Response\Response;
+use mabrahao\MockServer\Model\Response;
 use PHPUnit\Framework\TestCase;
 
 class ResponseTest extends TestCase

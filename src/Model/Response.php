@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer\Response;
+namespace mabrahao\MockServer\Model;
 
 class Response
 {

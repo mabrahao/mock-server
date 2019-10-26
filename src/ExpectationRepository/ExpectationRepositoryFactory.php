@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace mabrahao\MockServer\ExpectationRepository;
 
 use mabrahao\MockServer\Enum\Storage;
 

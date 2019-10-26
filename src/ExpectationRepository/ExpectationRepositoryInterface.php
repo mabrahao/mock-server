@@ -1,6 +1,8 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace mabrahao\MockServer\ExpectationRepository;
+
+use mabrahao\MockServer\Model\Expectation;
 
 interface ExpectationRepositoryInterface
 {

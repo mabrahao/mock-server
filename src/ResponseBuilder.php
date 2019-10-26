@@ -2,6 +2,8 @@
 
 namespace mabrahao\MockServer;
 
+use mabrahao\MockServer\Model\Expectation;
+
 class ResponseBuilder
 {
     public function buildFrom(Expectation $expectation)

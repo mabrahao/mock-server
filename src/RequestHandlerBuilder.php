@@ -2,6 +2,7 @@
 
 namespace mabrahao\MockServer;
 
+use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryFactory;
 use mabrahao\MockServer\Matchers\Body\BodyMatcher;
 use mabrahao\MockServer\Matchers\Header\HeaderMatcher;
 use mabrahao\MockServer\Matchers\Method\MethodMatcher;

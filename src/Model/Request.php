@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer\Request;
+namespace mabrahao\MockServer\Model;
 
 class Request
 {

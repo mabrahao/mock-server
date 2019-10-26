@@ -2,7 +2,7 @@
 
 namespace mabrahao\MockServer\Matchers;
 
-use mabrahao\MockServer\Expectation;
+use mabrahao\MockServer\Model\Expectation;
 use mabrahao\MockServer\Matchers\Body\BodyMatcher;
 use mabrahao\MockServer\Matchers\Header\HeaderMatcher;
 use mabrahao\MockServer\Matchers\Method\MethodMatcher;

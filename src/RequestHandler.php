@@ -2,15 +2,8 @@
 
 namespace mabrahao\MockServer;
 
-use mabrahao\MockServer\Expectation;
-use mabrahao\MockServer\ExpectationRepositoryInterface;
-use mabrahao\MockServer\ExpectationRepositoryFactory;
-use mabrahao\MockServer\Matchers\Body\BodyMatcher;
-use mabrahao\MockServer\Matchers\Header\HeaderMatcher;
-use mabrahao\MockServer\Matchers\Method\MethodMatcher;
-use mabrahao\MockServer\Matchers\Path\PathMatcher;
+use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
 use mabrahao\MockServer\Matchers\RequestMatcher;
-use mabrahao\MockServer\MatchNotFoundException;
 
 class RequestHandler
 {
@@ -18,7 +11,7 @@ class RequestHandler
     private $responseBuilder;
     /** @var RequestMatcher */
     private $requestMatcher;
-    /** @var \mabrahao\MockServer\ExpectationRepositoryInterface */
+    /** @var ExpectationRepositoryInterface */
     private $expectationRepository;
     /** @var array */
     private $serverData;
@@ -28,7 +21,7 @@ class RequestHandler
      * RequestHandler constructor.
      * @param ResponseBuilder $responseBuilder
      * @param RequestMatcher $requestMatcher
-     * @param \mabrahao\MockServer\ExpectationRepositoryInterface $expectationRepository
+     * @param ExpectationRepositoryInterface $expectationRepository
      * @param array $serverData
      * @param $inputData
      */

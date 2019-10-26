@@ -1,7 +1,7 @@
 <?php
 
 use mabrahao\MockServer\Enum\Method;
-use mabrahao\MockServer\Request\Request;
+use mabrahao\MockServer\Model\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase

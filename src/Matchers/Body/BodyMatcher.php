@@ -15,9 +15,7 @@ class BodyMatcher implements BodyMatcherInterface
         $this->matchersChain = new StringBodyMatcher(
             new RegexBodyMatcher(
                 new JsonBodyMatcher(
-                    new XmlBodyMatcher(
-                        new NotFoundBodyMatcher()
-                    )
+                    new NotFoundBodyMatcher()
                 )
             )
         );

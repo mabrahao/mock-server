@@ -3,32 +3,34 @@
 namespace mabrahao\MockServer;
 
 use mabrahao\MockServer\Enum\Storage;
-use mabrahao\MockServer\Request\Request;
+use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryFactory;
+use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
+use mabrahao\MockServer\Model\Expectation;
+use mabrahao\MockServer\Model\Times;
+use mabrahao\MockServer\Model\Request;
 
 class MockServerClient
 {
     /** @var MockServer */
-    private $server;
+    private $mockServer;
     /** @var ExpectationRepositoryInterface */
     private $expectationRepository;
 
     /**
-     * MockServer constructor.
-     * @param string $host
-     * @param int $port
-     * @param int $sleepTime
-     * @param string $storageType
+     * MockServerClient constructor.
+     * @param MockServer $mockServer
+     * @param ExpectationRepositoryInterface $expectationRepository
      */
-    public function __construct(string $host = '127.0.0.1', int $port = 0, $sleepTime = 200000, $storageType = Storage::TEMP_FILE)
+    public function __construct(MockServer $mockServer, ExpectationRepositoryInterface $expectationRepository)
     {
-        $this->server = ServerFactory::newInstance($host, $port, $sleepTime, $storageType);
-        $this->expectationRepository = ExpectationRepositoryFactory::newInstance($storageType);
+        $this->mockServer = $mockServer;
+        $this->expectationRepository = $expectationRepository;
     }
 
     public function when(Request $request, Times $times = null): ChainedExpectation
     {
-        if (!$this->server->isRunning()) {
-            $this->server->run();
+        if (!$this->mockServer->isRunning()) {
+            $this->mockServer->run();
         }
 
         $expectation = new Expectation($request, $times);
@@ -46,12 +48,12 @@ class MockServerClient
      */
     public function getServerUrl(): string
     {
-        return $this->server->getUrl();
+        return $this->mockServer->getUrl();
     }
 
     public function __destruct()
     {
         $this->expectationRepository->nukeAllExpectations();
-        $this->server->stop();
+        $this->mockServer->stop();
     }
 }

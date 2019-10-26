@@ -2,7 +2,8 @@
 
 namespace mabrahao\MockServer;
 
-use mabrahao\MockServer\Response\Response;
+use mabrahao\MockServer\Model\Expectation;
+use mabrahao\MockServer\Model\Response;
 
 class ChainedExpectation
 {

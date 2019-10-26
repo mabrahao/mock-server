@@ -1,9 +1,10 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace mabrahao\MockServer\Model;
 
-use mabrahao\MockServer\Request\Request;
-use mabrahao\MockServer\Response\Response;
+use mabrahao\MockServer\Model\Request;
+use mabrahao\MockServer\Model\Response;
+use mabrahao\MockServer\Model\Times;
 
 class Expectation
 {
