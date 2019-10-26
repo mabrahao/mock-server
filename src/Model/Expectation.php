@@ -19,8 +19,9 @@ class Expectation
      * Expectation constructor.
      * @param Request $request
      * @param Times $times
+     * @param \mabrahao\MockServer\Model\Response|null $response
      */
-    public function __construct(Request $request, Times $times = null)
+    public function __construct(Request $request, Times $times = null, Response $response = null)
     {
         if (!$times) {
             $times = Times::any();
@@ -28,6 +29,7 @@ class Expectation
 
         $this->request = $request;
         $this->times = $times;
+        $this->response = $response;
     }
 
     public function setResponse(Response $response): Expectation
@@ -64,7 +66,7 @@ class Expectation
     {
         return [
             'request' => $this->request->toArray(),
-            'times' => $this->times->getRemaining(),
+            'times' => $this->times->toArray(),
             'response' => $this->response->toArray()
         ];
     }

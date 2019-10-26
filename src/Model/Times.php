@@ -5,19 +5,47 @@ namespace mabrahao\MockServer\Model;
 class Times
 {
     private $counter;
+    /** @var bool */
+    private $any;
 
     /**
      * Times constructor.
      * @param $counter
+     * @param bool $any
      */
-    private function __construct($counter)
+    private function __construct($counter, $any = false)
     {
         $this->counter = $counter;
+        $this->any = $any;
+    }
+
+    public function getRemaining(): int
+    {
+        return $this->counter;
+    }
+
+    public function decrement(): self
+    {
+        $this->counter--;
+        return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'counter' => $this->counter,
+            'any' => $this->any,
+        ];
+    }
+
+    public function isAny()
+    {
+        return $this->any;
     }
 
     public static function any(): self
     {
-        return new self(-1);
+        return new self(0, true);
     }
 
     public static function once(): self
@@ -30,14 +58,11 @@ class Times
         return new self($times);
     }
 
-    public function getRemaining(): int
+    public static function fromArray(array $times): self
     {
-        return $this->counter;
-    }
-
-    public function decrement(): self
-    {
-        $this->counter--;
-        return $this;
+        return new self(
+          $times['counter'],
+          $times['any']
+        );
     }
 }

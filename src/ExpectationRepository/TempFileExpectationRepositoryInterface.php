@@ -78,20 +78,11 @@ class TempFileExpectationRepositoryInterface implements ExpectationRepositoryInt
                     true
                 );
 
-                $request = $config['request'];
-                $times = $config['times'];
-                $response = $config['response'];
-
-                $expectation = new Expectation(
-                    Request::fromArray($request),
-                    Times::exactly(intval($times))
+                return  new Expectation(
+                    Request::fromArray($config['request']),
+                    Times::fromArray($config['times']),
+                    Response::fromArray($config['response'])
                 );
-
-                $expectation->setResponse(
-                    Response::fromArray($response)
-                );
-
-                return $expectation;
             },
             $files
         );
@@ -103,23 +94,15 @@ class TempFileExpectationRepositoryInterface implements ExpectationRepositoryInt
     public function nukeAllExpectations(): bool
     {
         try {
-            $files = array_filter(
+            array_walk(
                 scandir($this->tmpPath, 1),
                 function ($file) {
                     if (preg_match('/^request-(.*)\.config/', $file)) {
-                        return $file;
+                        unlink($this->tmpPath . DIRECTORY_SEPARATOR . $file);
                     }
                 }
             );
 
-            foreach ($files as $file) {
-                echo $this->tmpPath . DIRECTORY_SEPARATOR . $file;
-                echo PHP_EOL;
-                unlink($this->tmpPath . DIRECTORY_SEPARATOR . $file);
-                echo "sucesso";
-                echo PHP_EOL;
-
-            }
             return true;
         } catch (\Exception $e) {
             return false;
