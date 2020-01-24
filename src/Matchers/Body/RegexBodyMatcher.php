@@ -2,6 +2,8 @@
 
 namespace mabrahao\MockServer\Matchers\Body;
 
+use mabrahao\MockServer\Model\Body;
+
 class RegexBodyMatcher implements BodyMatcherInterface
 {
     /** @var BodyMatcherInterface */
@@ -12,7 +14,7 @@ class RegexBodyMatcher implements BodyMatcherInterface
         $this->nextMatcher = $nextMatcher;
     }
 
-    public function matches($actual, $condition): bool
+    public function matches($actual, Body $condition): bool
     {
         if ($this->matchRegex($actual, $condition)) {
             return true;

@@ -2,10 +2,13 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use mabrahao\MockServer\Enum\MatchType;
 use mabrahao\MockServer\Enum\Method;
 use mabrahao\MockServer\MockServerBuilder;
+use mabrahao\MockServer\Model\Body;
 use mabrahao\MockServer\Model\Request;
 use mabrahao\MockServer\Model\Response;
+use mabrahao\MockServer\Model\Times;
 
 $server = MockServerBuilder::build('127.0.0.1', 64648);
 
@@ -24,7 +27,30 @@ $server->when(
     Request::new()
         ->withPath('/api/v1/integrations')
         ->withMethod(Method::POST)
-        ->withBody(json_encode(['name' => 'John Doe', 'email' => 'john.doe@7shifts.com']))
+        ->withBody(
+            Body::json(
+                json_encode(['name' => 'Maria Doe']),
+                MatchType::STRICT()
+            )
+        )
+)->respond(
+    Response::new()
+        ->withStatusCode(201)
+        ->withHeader('Content-Type', 'application/json')
+        ->withBody(json_encode(['success' => true]))
+);
+
+$server->when(
+    Request::new()
+        ->withPath('/api/v1/integrations')
+        ->withMethod(Method::POST)
+        ->withBody(
+            Body::json(
+                json_encode(['name' => 'John Doe']),
+                MatchType::CONTAINS()
+            )
+        ),
+    Times::once()
 )->respond(
     Response::new()
         ->withStatusCode(201)
@@ -42,6 +68,3 @@ $server->when(
         ->withHeader('Content-Type', 'application/json')
         ->withBody(json_encode(['name' => 'John Doe', 'email' => 'john.doe@7shifts.com']))
 );
-
-
-while (true);

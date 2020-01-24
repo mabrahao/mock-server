@@ -52,14 +52,14 @@ class RequestMatcher
             return false;
         }
 
-        $expectationBody = $expectation->getRequest()->getBody();
-        $bodyCondition = $inputData;
-        if ($expectationBody && !$this->bodyMatcher->matches($expectationBody, $bodyCondition)) {
+        $expectationBody = $inputData;
+        $bodyCondition = $expectation->getRequest()->getBody();
+        if ($bodyCondition && !$this->bodyMatcher->matches($expectationBody, $bodyCondition)) {
             return false;
         }
 
-        $expectationHeaders = $expectation->getRequest()->getHeaders();
-        if ($expectationHeaders && !$this->headerMatcher->matches($expectationHeaders, $serverData)) {
+        $headerCondition = $expectation->getRequest()->getHeaders();
+        if ($headerCondition && !$this->headerMatcher->matches($headerCondition, $serverData)) {
             return false;
         }
 

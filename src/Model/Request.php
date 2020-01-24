@@ -4,15 +4,28 @@ namespace mabrahao\MockServer\Model;
 
 class Request
 {
-    private $requestStructure = [];
+    /** @var Body */
+    private $body;
+    /** @var string */
+    private $path;
+    /** @var string */
+    private $method;
+    /** @var array|null */
+    private $headers;
 
     /**
      * Request constructor.
-     * @param array $requestStructure
+     * @param string $path
+     * @param string $method
+     * @param Body|null $body
+     * @param array|null $headers
      */
-    private function __construct(array $requestStructure = [])
+    private function __construct(?string $path, ?string $method, ?Body $body, ?array $headers)
     {
-        $this->requestStructure = $requestStructure;
+        $this->path = $path;
+        $this->method = $method;
+        $this->body = $body;
+        $this->headers = $headers;
     }
 
 
@@ -22,7 +35,7 @@ class Request
      */
     public function withPath(string $path): Request
     {
-        $this->requestStructure['path'] = $path;
+        $this->path = $path;
         return $this;
     }
 
@@ -32,7 +45,7 @@ class Request
      */
     public function withMethod(string $method): Request
     {
-        $this->requestStructure['method'] = $method;
+        $this->method = $method;
         return $this;
     }
 
@@ -43,51 +56,45 @@ class Request
      */
     public function withHeader(string $headerKey, string $headerValue): Request
     {
-        $this->requestStructure['header'] = array_merge(
-            $this->requestStructure['header'] ?? [],
+        $this->headers = array_merge(
+            $this->headers ?? [],
             [$headerKey => $headerValue]
         );
         return $this;
     }
 
     /**
-     * @param string $body
+     * @param $body
      * @return Request
      */
-    public function withBody(string $body): Request
+    public function withBody($body): Request
     {
-        $this->requestStructure['body'] = $body;
-        return $this;
-    }
+        if (is_string($body)) {
+            $body = new StringBody($body);
+        }
 
-    /**
-     * @param string $body
-     * @return Request
-     */
-    public function withJsonBody(string $body): Request
-    {
-        $this->requestStructure['jsonBody'] = $body;
+        $this->body = $body;
         return $this;
     }
 
     public function getPath(): string
     {
-        return $this->requestStructure['path'];
+        return $this->path;
     }
 
     public function getMethod(): string
     {
-        return $this->requestStructure['method'];
+        return $this->method;
     }
 
-    public function getBody(): ?string
+    public function getBody(): ?Body
     {
-        return $this->requestStructure['body'] ?? null;
+        return $this->body ?? null;
     }
 
     public function getHeaders(): ?array
     {
-        return $this->requestStructure['header'] ?? null;
+        return $this->headers ?? null;
     }
 
     /**
@@ -95,16 +102,26 @@ class Request
      */
     public function toArray(): array
     {
-        return $this->requestStructure;
+        return [
+            'path' => $this->path,
+            'method' => $this->method,
+            'body' => serialize($this->body),
+            'headers' => $this->headers,
+        ];
     }
 
-    public static function fromArray(array $requestStructure): self
+    public static function fromArray(array $data): self
     {
-        return new self($requestStructure);
+        return new self(
+            $data['path'],
+            $data['method'],
+            unserialize($data['body']) ?? null,
+            $data['headers'] ?? null
+        );
     }
 
     public static function new(): self
     {
-        return new self();
+        return new self(null, null, null, null);
     }
 }

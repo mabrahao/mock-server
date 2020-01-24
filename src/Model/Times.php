@@ -4,37 +4,43 @@ namespace mabrahao\MockServer\Model;
 
 class Times
 {
-    private $counter;
+    /** @var int */
+    private $expectedAmount;
+    /** @var int */
+    private $actualAmount;
     /** @var bool */
     private $any;
 
     /**
      * Times constructor.
-     * @param $counter
+     * @param $expectedAmount
      * @param bool $any
+     * @param int $actualAmount
      */
-    private function __construct($counter, $any = false)
+    private function __construct($expectedAmount, $any = false, int $actualAmount = 0)
     {
-        $this->counter = $counter;
+        $this->expectedAmount = $expectedAmount;
+        $this->actualAmount = $actualAmount;
         $this->any = $any;
     }
 
     public function getRemaining(): int
     {
-        return $this->counter;
+        return $this->expectedAmount - $this->actualAmount;
     }
 
-    public function decrement(): self
+    public function incrementActual(): self
     {
-        $this->counter--;
+        $this->actualAmount++;
         return $this;
     }
 
     public function toArray(): array
     {
         return [
-            'counter' => $this->counter,
+            'expectedAmount' => $this->expectedAmount,
             'any' => $this->any,
+            'actualAmount' => $this->expectedAmount,
         ];
     }
 
@@ -61,8 +67,9 @@ class Times
     public static function fromArray(array $times): self
     {
         return new self(
-          $times['counter'],
-          $times['any']
+          $times['expectedAmount'],
+          $times['any'],
+          $times['actualAmount']
         );
     }
 }

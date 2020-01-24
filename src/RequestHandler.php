@@ -44,8 +44,9 @@ class RequestHandler
         $expectations = $this->expectationRepository->fetchAll();
         foreach($expectations as $expectation) {
             if($this->requestMatcher->matches($expectation, $this->serverData, $this->inputData)) {
+                // TODO: handle Times
                 $this->responseBuilder->buildFrom($expectation);
-                return true;
+                return;
             }
         }
 

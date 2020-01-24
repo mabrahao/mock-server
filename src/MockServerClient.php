@@ -2,8 +2,6 @@
 
 namespace mabrahao\MockServer;
 
-use mabrahao\MockServer\Enum\Storage;
-use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryFactory;
 use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
 use mabrahao\MockServer\Model\Expectation;
 use mabrahao\MockServer\Model\Times;
@@ -53,6 +51,7 @@ class MockServerClient
 
     public function __destruct()
     {
+        // TODO: Throw exception if a expectation is set to not any and counter in less than expected
         $this->expectationRepository->nukeAllExpectations();
         $this->mockServer->stop();
     }
