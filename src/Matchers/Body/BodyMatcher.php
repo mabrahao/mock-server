@@ -16,8 +16,10 @@ class BodyMatcher implements BodyMatcherInterface
     {
         $this->matchersChain = new StringBodyMatcher(
             new RegexBodyMatcher(
-                new JsonBodyMatcher(
-                    new NotFoundBodyMatcher()
+                new ParameterBodyMatcher(
+                    new JsonBodyMatcher(
+                        new NotFoundBodyMatcher()
+                    )
                 )
             )
         );

@@ -30,7 +30,10 @@ class JsonBodyMatcher implements BodyMatcherInterface
             }
         }
 
-        if (json_decode($actual) == json_decode($condition)) {
+        $decodedActual = json_decode($actual);
+        $decodedCondition = json_decode($condition);
+
+        if ($decodedActual && $decodedActual === $decodedCondition) {
             return true;
         }
 
@@ -41,7 +44,12 @@ class JsonBodyMatcher implements BodyMatcherInterface
     {
         $a = json_decode($actual, true);
         $c = json_decode($condition, true);
-        return count(array_intersect($c, $a)) === count($c);
+
+        if ($a && $c) {
+            return count(array_intersect($c, $a)) === count($c);
+        }
+
+        return false;
     }
 
     private function matchStrict($actual, JsonBody $condition)
@@ -49,9 +57,13 @@ class JsonBodyMatcher implements BodyMatcherInterface
         $a = json_decode($actual, true);
         $c = json_decode($condition, true);
 
-        ksort($a);
-        ksort($c);
+        if ($a && $c) {
+            ksort($a);
+            ksort($c);
 
-        return $a === $c;
+            return $a === $c;
+        }
+
+        return false;
     }
 }

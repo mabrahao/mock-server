@@ -38,23 +38,23 @@ class RequestMatcher
         $this->headerMatcher = $headerMatcher;
     }
 
-    public function matches(Expectation $expectation, $serverData, $inputData): bool
+    public function matches(Expectation $expectation, $serverData, $formData, $inputData): bool
     {
-        $expectationPath = $serverData['REQUEST_URI'];
+        $pathExpectation = $serverData['REQUEST_URI'];
         $pathCondition = $expectation->getRequest()->getPath();
-        if (!$this->pathMatcher->matches($expectationPath, $pathCondition)) {
+        if (!$this->pathMatcher->matches($pathExpectation, $pathCondition)) {
             return false;
         }
 
-        $expectationMethod = $serverData['REQUEST_METHOD'];
+        $methodExpectation = $serverData['REQUEST_METHOD'];
         $methodCondition = $expectation->getRequest()->getMethod();
-        if (!$this->methodMatcher->matches($expectationMethod, $methodCondition)) {
+        if (!$this->methodMatcher->matches($methodExpectation, $methodCondition)) {
             return false;
         }
 
-        $expectationBody = $inputData;
+        $bodyExpectation = $this->getBodyExpectation($formData, $inputData);
         $bodyCondition = $expectation->getRequest()->getBody();
-        if ($bodyCondition && !$this->bodyMatcher->matches($expectationBody, $bodyCondition)) {
+        if ($bodyCondition && !$this->bodyMatcher->matches($bodyExpectation, $bodyCondition)) {
             return false;
         }
 
@@ -64,5 +64,29 @@ class RequestMatcher
         }
 
         return true;
+    }
+
+    private function getBodyExpectation($formData, $inputData): string
+    {
+        if ($formData) {
+            return $this->getStringifiedFormData($formData);
+        }
+
+        return $inputData;
+    }
+
+    private function getStringifiedFormData($formData): string
+    {
+        ksort($formData);
+        return implode(
+            "&",
+            array_map(
+                function ($value, $key) {
+                    return sprintf("%s=%s", strval($key), $value);
+                },
+                $formData,
+                array_keys($formData)
+            )
+        );
     }
 }

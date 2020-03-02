@@ -7,5 +7,5 @@ use mabrahao\MockServer\Enum\Storage;
 
 $PHP_INPUT = file_get_contents("php://input");
 
-$requestHandler = RequestHandlerBuilder::build(Storage::TEMP_FILE, $_SERVER, $PHP_INPUT);
+$requestHandler = RequestHandlerBuilder::build(Storage::TEMP_FILE, $_SERVER, $_POST, $PHP_INPUT);
 $requestHandler->dispatch();

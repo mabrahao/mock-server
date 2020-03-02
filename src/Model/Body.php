@@ -17,4 +17,9 @@ class Body
     {
         return new JsonBody($body, $matchType);
     }
+
+    public static function params(Param ...$params): ParameterBody
+    {
+        return new ParameterBody($params);
+    }
 }

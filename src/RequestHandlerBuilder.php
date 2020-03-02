@@ -11,7 +11,7 @@ use mabrahao\MockServer\Matchers\RequestMatcher;
 
 class RequestHandlerBuilder
 {
-    public static function build(string $storageType, array $serverData, $inputData) {
+    public static function build(string $storageType, array $serverData, array $formData, $inputData) {
         $requestMatcher = new RequestMatcher(
             new PathMatcher(),
             new MethodMatcher(),
@@ -23,6 +23,6 @@ class RequestHandlerBuilder
 
         $assertionRepository = ExpectationRepositoryFactory::newInstance($storageType);
 
-        return new RequestHandler($requestMatcher, $responseBuilder, $assertionRepository, $serverData, $inputData);
+        return new RequestHandler($requestMatcher, $responseBuilder, $assertionRepository, $serverData, $formData, $inputData);
     }
 }
