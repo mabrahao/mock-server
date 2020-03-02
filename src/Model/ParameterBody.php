@@ -13,8 +13,7 @@ class ParameterBody extends Body
      */
     public function __construct(array $params)
     {
-        ksort($params);
-        $this->params = $params;
+        $this->params = $this->sortParams($params);
     }
 
     /**
@@ -46,5 +45,18 @@ class ParameterBody extends Body
         );
 
         return $body;
+    }
+
+    /**
+     * @param array $params
+     * @return Param[]
+     */
+    private function sortParams(array $params)
+    {
+        usort($params, function (Param $a, Param $b) {
+            return strcmp($a->getKey(), $b->getKey());
+        });
+
+        return $params;
     }
 }
