@@ -11,7 +11,7 @@ class ExpectationRepositoryFactory
         switch ($storageType) {
             case Storage::TEMP_FILE:
             default:
-                return new TempFileExpectationRepositoryInterface();
+                return new TempFileExpectationRepository();
         }
     }
 }

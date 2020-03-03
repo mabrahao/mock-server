@@ -7,7 +7,7 @@ use mabrahao\MockServer\Model\Request;
 use mabrahao\MockServer\Model\Response;
 use mabrahao\MockServer\Model\Times;
 
-class TempFileExpectationRepositoryInterface implements ExpectationRepositoryInterface
+class TempFileExpectationRepository implements ExpectationRepositoryInterface
 {
     /** @var string */
     private $tmpDir;
