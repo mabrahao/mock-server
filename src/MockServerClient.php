@@ -51,8 +51,19 @@ class MockServerClient
 
     public function __destruct()
     {
-        // TODO: Throw exception if a expectation is set to not any and counter in less than expected
+        $expectations = $this->expectationRepository->fetchAll();
         $this->expectationRepository->nukeAllExpectations();
         $this->mockServer->stop();
+        $this->checkCallsExpectations($expectations);
+    }
+
+    /**
+     * @param Expectation[] $expectations
+     */
+    private function checkCallsExpectations(array $expectations): void
+    {
+        array_walk($expectations, function(Expectation $expectation) {
+            $expectation->checkCallsExpectation();
+        });
     }
 }

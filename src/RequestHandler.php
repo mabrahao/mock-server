@@ -50,12 +50,18 @@ class RequestHandler
         $expectations = $this->expectationRepository->fetchAll();
         foreach($expectations as $expectation) {
             if($this->requestMatcher->matches($expectation, $this->serverData, $this->formData, $this->inputData)) {
-                // TODO: handle Times
+                $this->incrementCalls($expectation);
                 $this->responseBuilder->buildFrom($expectation);
                 return;
             }
         }
 
         throw new MatchNotFoundException('No match was found for this request!');
+    }
+
+    private function incrementCalls(Model\Expectation $expectation): void
+    {
+        $expectation->incrementCalls();
+        $this->expectationRepository->store($expectation);
     }
 }
