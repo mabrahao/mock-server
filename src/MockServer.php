@@ -82,7 +82,7 @@ class MockServer
 
     public function stop()
     {
-        exec(sprintf('kill %d', $this->pid));
+        posix_kill($this->pid, SIGKILL);
         usleep($this->sleepTime);
         $this->running = false;
     }
