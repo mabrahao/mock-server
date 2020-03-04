@@ -1,42 +1,43 @@
 <?php
 
-use mabrahao\MockServer\Domain\MethodEnum;
-use mabrahao\MockServer\Infrastructure\Request;
+use mabrahao\MockServer\Model\Response;
 use PHPUnit\Framework\TestCase;
 
-class RequestTest extends TestCase
+class ResponseTest extends TestCase
 {
     public function testConfigs()
     {
         // setup
-        $path = '/fake/path';
-        $method = MethodEnum::POST;
+        $statusCode = 200;
         $headerKey = 'content-type';
         $headerValue = 'application/json';
         $otherHeaderKey = 'x-api-key';
         $otherHeaderValue = 'fake_key';
+        $cookieKey = 'TOKEN';
+        $cookieValue = 'FAKE_TOKEN';
         $body = json_encode(['key'=>'value']);
 
         $expected = [
-            'path' => $path,
-            'method' => $method,
+            'statusCode' => $statusCode,
             'header' => [
                 $headerKey => $headerValue,
                 $otherHeaderKey => $otherHeaderValue
             ],
+            'cookie' => [
+                $cookieKey => $cookieValue
+            ],
             'body' => $body,
         ];
 
-        $request = new Request();
-        $request
-            ->withPath($path)
-            ->withMethod($method)
+        $response = Response::new()
+            ->withStatusCode($statusCode)
             ->withHeader($headerKey, $headerValue)
             ->withHeader($otherHeaderKey, $otherHeaderValue)
+            ->withCookie($cookieKey, $cookieValue)
             ->withBody($body);
 
         // execution
-        $actual = $request->getConfigs();
+        $actual = $response->toArray();
 
         // assertions
         $this->assertEquals($expected, $actual);
