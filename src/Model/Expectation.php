@@ -4,12 +4,11 @@ namespace mabrahao\MockServer\Model;
 
 use mabrahao\MockServer\Exceptions\TooFewCallsException;
 use mabrahao\MockServer\Exceptions\TooManyCallsException;
-use mabrahao\MockServer\Model\Request;
-use mabrahao\MockServer\Model\Response;
-use mabrahao\MockServer\Model\Times;
 
 class Expectation
 {
+    /** @var string|null */
+    private $id;
     /** @var Request */
     private $request;
     /** @var Times */
@@ -19,19 +18,39 @@ class Expectation
 
     /**
      * Expectation constructor.
+     * @param string|null $id
      * @param Request $request
      * @param Times $times
-     * @param \mabrahao\MockServer\Model\Response|null $response
+     * @param Response|null $response
      */
-    public function __construct(Request $request, Times $times = null, Response $response = null)
+    public function __construct(?string $id, Request $request, Times $times = null, Response $response = null)
     {
         if (!$times) {
             $times = Times::any();
         }
 
+        $this->id = $id;
         $this->request = $request;
         $this->times = $times;
         $this->response = $response;
+    }
+
+    /**
+     * @param string $id
+     * @return Expectation
+     */
+    public function setId(string $id): Expectation
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getId(): ?string
+    {
+        return $this->id;
     }
 
     public function setResponse(Response $response): Expectation
@@ -67,6 +86,7 @@ class Expectation
     public function toArray(): array
     {
         return [
+            'id' => $this->getId(),
             'request' => $this->request->toArray(),
             'times' => $this->times->toArray(),
             'response' => $this->response->toArray()

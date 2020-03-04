@@ -38,8 +38,14 @@ class TempFileExpectationRepository implements ExpectationRepositoryInterface
                 mkdir($this->tmpPath);
             }
 
-            $uniqid = uniqid('request-');
-            $filePath = $this->tmpPath . DIRECTORY_SEPARATOR . "{$uniqid}.config";
+            $uniqId = $expectation->getId();
+
+            if (!$uniqId) {
+                $uniqId = uniqid('request-');
+                $expectation->setId($uniqId);
+            }
+
+            $filePath = $this->tmpPath . DIRECTORY_SEPARATOR . "{$uniqId}.config";
 
             $file = fopen($filePath, "w");
             fwrite($file, json_encode($expectation->toArray()));
@@ -78,7 +84,8 @@ class TempFileExpectationRepository implements ExpectationRepositoryInterface
                     true
                 );
 
-                return  new Expectation(
+                return new Expectation(
+                    $config['id'],
                     Request::fromArray($config['request']),
                     Times::fromArray($config['times']),
                     Response::fromArray($config['response'])

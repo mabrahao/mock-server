@@ -31,7 +31,7 @@ class MockServerClient
             $this->mockServer->run();
         }
 
-        $expectation = new Expectation($request, $times);
+        $expectation = new Expectation(null, $request, $times);
 
         return new ChainedExpectation($this, $expectation);
     }
