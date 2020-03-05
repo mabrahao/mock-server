@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer\Matchers\Path;
+namespace Mabrahao\MockServer\Matchers\Path;
 
 interface PathMatcherInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace mabrahao\MockServer\Matchers;
+namespace Mabrahao\MockServer\Matchers;
 
-use mabrahao\MockServer\Model\Expectation;
-use mabrahao\MockServer\Matchers\Body\BodyMatcher;
-use mabrahao\MockServer\Matchers\Header\HeaderMatcher;
-use mabrahao\MockServer\Matchers\Method\MethodMatcher;
-use mabrahao\MockServer\Matchers\Path\PathMatcher;
+use Mabrahao\MockServer\Model\Expectation;
+use Mabrahao\MockServer\Matchers\Body\BodyMatcher;
+use Mabrahao\MockServer\Matchers\Header\HeaderMatcher;
+use Mabrahao\MockServer\Matchers\Method\MethodMatcher;
+use Mabrahao\MockServer\Matchers\Path\PathMatcher;
 
 class RequestMatcher
 {

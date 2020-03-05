@@ -1,9 +1,9 @@
 <?php
 
-namespace mabrahao\MockServer\Model;
+namespace Mabrahao\MockServer\Model;
 
-use mabrahao\MockServer\Exceptions\TooFewCallsException;
-use mabrahao\MockServer\Exceptions\TooManyCallsException;
+use Mabrahao\MockServer\Exceptions\TooFewCallsException;
+use Mabrahao\MockServer\Exceptions\TooManyCallsException;
 
 class Expectation
 {

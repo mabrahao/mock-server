@@ -1,9 +1,9 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
-use mabrahao\MockServer\Model\Expectation;
-use mabrahao\MockServer\Model\Response;
+use Mabrahao\MockServer\Model\Expectation;
+use Mabrahao\MockServer\Model\Response;
 
 class ChainedExpectation
 {

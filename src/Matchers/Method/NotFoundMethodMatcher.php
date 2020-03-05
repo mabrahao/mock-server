@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer\Matchers\Method;
+namespace Mabrahao\MockServer\Matchers\Method;
 
 class NotFoundMethodMatcher implements MethodMatcherInterface
 {

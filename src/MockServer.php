@@ -1,10 +1,10 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
-use mabrahao\MockServer\Enum\Storage;
-use mabrahao\MockServer\Exceptions\NoAvailablePortException;
-use mabrahao\MockServer\Exceptions\UnableToBindAddressException;
+use Mabrahao\MockServer\Enum\Storage;
+use Mabrahao\MockServer\Exceptions\NoAvailablePortException;
+use Mabrahao\MockServer\Exceptions\UnableToBindAddressException;
 
 class MockServer
 {
@@ -82,7 +82,7 @@ class MockServer
 
     public function stop()
     {
-        posix_kill($this->pid, SIGKILL);
+        posix_kill(intval($this->pid), 9);
         usleep($this->sleepTime);
         $this->running = false;
     }

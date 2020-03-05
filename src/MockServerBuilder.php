@@ -1,9 +1,9 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
-use mabrahao\MockServer\Enum\Storage;
-use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryFactory;
+use Mabrahao\MockServer\Enum\Storage;
+use Mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryFactory;
 
 class MockServerBuilder
 {

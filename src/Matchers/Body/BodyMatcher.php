@@ -1,8 +1,8 @@
 <?php
 
-namespace mabrahao\MockServer\Matchers\Body;
+namespace Mabrahao\MockServer\Matchers\Body;
 
-use mabrahao\MockServer\Model\Body;
+use Mabrahao\MockServer\Model\Body;
 
 class BodyMatcher implements BodyMatcherInterface
 {

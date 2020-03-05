@@ -1,11 +1,11 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
-use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
-use mabrahao\MockServer\Model\Expectation;
-use mabrahao\MockServer\Model\Times;
-use mabrahao\MockServer\Model\Request;
+use Mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
+use Mabrahao\MockServer\Model\Expectation;
+use Mabrahao\MockServer\Model\Times;
+use Mabrahao\MockServer\Model\Request;
 
 class MockServerClient
 {

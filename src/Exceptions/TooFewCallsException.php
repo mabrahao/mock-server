@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer\Exceptions;
+namespace Mabrahao\MockServer\Exceptions;
 
 class TooFewCallsException extends \RuntimeException
 {

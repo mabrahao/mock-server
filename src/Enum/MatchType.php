@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer\Enum;
+namespace Mabrahao\MockServer\Enum;
 
 use MyCLabs\Enum\Enum;
 

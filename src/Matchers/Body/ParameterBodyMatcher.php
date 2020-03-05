@@ -1,9 +1,9 @@
 <?php
 
-namespace mabrahao\MockServer\Matchers\Body;
+namespace Mabrahao\MockServer\Matchers\Body;
 
-use mabrahao\MockServer\Model\Body;
-use mabrahao\MockServer\Model\ParameterBody;
+use Mabrahao\MockServer\Model\Body;
+use Mabrahao\MockServer\Model\ParameterBody;
 
 class ParameterBodyMatcher implements BodyMatcherInterface
 {

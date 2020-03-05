@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer\Matchers\Header;
+namespace Mabrahao\MockServer\Matchers\Header;
 
 interface HeaderMatcherInterface
 {

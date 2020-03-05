@@ -1,8 +1,8 @@
 <?php
 
-namespace mabrahao\MockServer\Model;
+namespace Mabrahao\MockServer\Model;
 
-use mabrahao\MockServer\Enum\MatchType;
+use Mabrahao\MockServer\Enum\MatchType;
 
 class JsonBody extends Body
 {

@@ -8,8 +8,8 @@ if (file_exists(__DIR__ . '/../../vendor/autoload.php')){
     throw new RuntimeException('autoload file not found');
 }
 
-use mabrahao\MockServer\RequestHandlerBuilder;
-use mabrahao\MockServer\Enum\Storage;
+use Mabrahao\MockServer\RequestHandlerBuilder;
+use Mabrahao\MockServer\Enum\Storage;
 
 $PHP_INPUT = file_get_contents("php://input");
 

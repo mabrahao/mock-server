@@ -1,13 +1,13 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
-use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryFactory;
-use mabrahao\MockServer\Matchers\Body\BodyMatcher;
-use mabrahao\MockServer\Matchers\Header\HeaderMatcher;
-use mabrahao\MockServer\Matchers\Method\MethodMatcher;
-use mabrahao\MockServer\Matchers\Path\PathMatcher;
-use mabrahao\MockServer\Matchers\RequestMatcher;
+use Mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryFactory;
+use Mabrahao\MockServer\Matchers\Body\BodyMatcher;
+use Mabrahao\MockServer\Matchers\Header\HeaderMatcher;
+use Mabrahao\MockServer\Matchers\Method\MethodMatcher;
+use Mabrahao\MockServer\Matchers\Path\PathMatcher;
+use Mabrahao\MockServer\Matchers\RequestMatcher;
 
 class RequestHandlerBuilder
 {

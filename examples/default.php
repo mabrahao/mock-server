@@ -2,14 +2,14 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use mabrahao\MockServer\Enum\MatchType;
-use mabrahao\MockServer\Enum\Method;
-use mabrahao\MockServer\MockServerBuilder;
-use mabrahao\MockServer\Model\Body;
-use mabrahao\MockServer\Model\Param;
-use mabrahao\MockServer\Model\Request;
-use mabrahao\MockServer\Model\Response;
-use mabrahao\MockServer\Model\Times;
+use Mabrahao\MockServer\Enum\MatchType;
+use Mabrahao\MockServer\Enum\Method;
+use Mabrahao\MockServer\MockServerBuilder;
+use Mabrahao\MockServer\Model\Body;
+use Mabrahao\MockServer\Model\Param;
+use Mabrahao\MockServer\Model\Request;
+use Mabrahao\MockServer\Model\Response;
+use Mabrahao\MockServer\Model\Times;
 
 $server = MockServerBuilder::build('127.0.0.1', 64648);
 

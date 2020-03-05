@@ -1,9 +1,9 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
-use mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
-use mabrahao\MockServer\Matchers\RequestMatcher;
+use Mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
+use Mabrahao\MockServer\Matchers\RequestMatcher;
 
 class RequestHandler
 {

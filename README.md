@@ -7,6 +7,7 @@ Simples mock server to create integration tests in PHP.
 - **php**: >=7.2
 - **ext-sockets**: *
 - **ext-json**: *
+- **ext-posix**: *
 - **myclabs/php-enum**: ^1.7
 
 ## Installing

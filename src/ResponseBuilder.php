@@ -1,8 +1,8 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
-use mabrahao\MockServer\Model\Expectation;
+use Mabrahao\MockServer\Model\Expectation;
 
 class ResponseBuilder
 {

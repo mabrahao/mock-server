@@ -1,6 +1,6 @@
 <?php
 
-namespace mabrahao\MockServer;
+namespace Mabrahao\MockServer;
 
 class MatchNotFoundException extends \RuntimeException
 {

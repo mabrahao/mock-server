@@ -1,11 +1,11 @@
 <?php
 
-namespace mabrahao\MockServer\ExpectationRepository;
+namespace Mabrahao\MockServer\ExpectationRepository;
 
-use mabrahao\MockServer\Model\Expectation;
-use mabrahao\MockServer\Model\Request;
-use mabrahao\MockServer\Model\Response;
-use mabrahao\MockServer\Model\Times;
+use Mabrahao\MockServer\Model\Expectation;
+use Mabrahao\MockServer\Model\Request;
+use Mabrahao\MockServer\Model\Response;
+use Mabrahao\MockServer\Model\Times;
 
 class TempFileExpectationRepository implements ExpectationRepositoryInterface
 {
