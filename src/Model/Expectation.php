@@ -2,6 +2,7 @@
 
 namespace Mabrahao\MockServer\Model;
 
+use Mabrahao\MockServer\Exceptions\MatchNotFoundException;
 use Mabrahao\MockServer\Exceptions\TooFewCallsException;
 use Mabrahao\MockServer\Exceptions\TooManyCallsException;
 
@@ -117,6 +118,16 @@ class Expectation
             }
 
             throw new TooFewCallsException($message);
+        } else {
+            if ($times->isAny() && $times->getActualAmount() === 0)
+            {
+                $message = sprintf(
+                    "Path: %s set to be called at least once, but was never called",
+                    $path
+                );
+
+                throw new MatchNotFoundException($message);
+            }
         }
     }
 }
