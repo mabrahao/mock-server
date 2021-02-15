@@ -2,6 +2,7 @@
 
 namespace Mabrahao\MockServer\Exceptions;
 
-class NoAvailablePortException extends \RuntimeException {
+class NoAvailablePortException extends \RuntimeException
+{
 
 }

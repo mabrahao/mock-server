@@ -2,6 +2,7 @@
 
 namespace Mabrahao\MockServer;
 
+use Mabrahao\MockServer\Exceptions\MatchNotFoundException;
 use Mabrahao\MockServer\ExpectationRepository\ExpectationRepositoryInterface;
 use Mabrahao\MockServer\Matchers\RequestMatcher;
 

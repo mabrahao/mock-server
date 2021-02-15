@@ -2,6 +2,7 @@
 
 namespace Mabrahao\MockServer\Exceptions;
 
-class UnableToBindAddressException extends \RuntimeException {
+class UnableToBindAddressException extends \RuntimeException
+{
 
 }
