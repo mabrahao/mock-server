@@ -56,8 +56,6 @@ class RequestHandler
                 return;
             }
         }
-
-        throw new MatchNotFoundException('No match was found for this request!');
     }
 
     private function incrementCalls(Model\Expectation $expectation): void
